@@ -1,6 +1,9 @@
 package singleton
 
 class SingletonWithParam private constructor(message: String) {
+    init {
+        // you can to some initializations here
+    }
     companion object : SingletonHolder<SingletonWithParam, String>(::SingletonWithParam)
 }
 

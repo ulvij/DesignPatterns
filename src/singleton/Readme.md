@@ -4,7 +4,7 @@ Ensure a class has only one instance, and provide a global point of access to it
 
 ### Check list
 - Define a private "static" attribute in the "single instance" class
-- define a public "static" accessor function in the class
+- Define a public "static" accessor function in the class
 - Do "lazy initialization" (creation on first use) in the accessor function
 - Define all constructors to be __protected__ or __private__
 - Should be thread-safe
@@ -13,8 +13,8 @@ Singleton is created by simply declaring an ``object`` keyword :
 
 ```kotlin
 object SingletonWithoutParam {
-    fun getInstance():SingletonWithoutParam{
-        return this
+    init {
+        // you can to some initializations here
     }
 }
 ```
@@ -79,30 +79,24 @@ We can send any params to Singleton class by using the help of ```SingletonHolde
 
 ```kotlin
 class SingletonWithParam private constructor(message: String) {
+    
+    init {
+            // you can to some initializations here
+        }    
+
     companion object : SingletonHolder<SingletonWithParam, String>(::SingletonWithParam)
 }
 ```
-
 
 Implementation of both method : 
 
 ```kotlin
 fun main() {
     println("Implementation without sending params")
-    println("First call ->${SingletonWithoutParam.getInstance().hashCode()}")
-    println("Second call ->${SingletonWithoutParam.getInstance().hashCode()}")
+    println("First call ->${SingletonWithoutParam.hashCode()}")
+    println("Second call ->${SingletonWithoutParam.hashCode()}")
     println("Implementation with sending params")
-    println("First call ->${SingletonWithParam.getInstance("First param").hashCode()}")
-    println("Second call ->${SingletonWithParam.getInstance("Second param").hashCode()}")
+    println("First call ->${SingletonWithParam.getInstance("First Call").hashCode()}")
+    println("Second call ->${SingletonWithParam.getInstance("Second Call").hashCode()}")
 }
-```
-
-Result : 
-```
-Implementation without sending params
-First call ->2054798982
-Second call ->2054798982
-Implementation with sending params
-First call ->1032616650
-Second call ->1032616650
 ```
